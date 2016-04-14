@@ -1,0 +1,41 @@
+###IDEA下开发storm-kafka
+####maven
+在linux下通过maven官网，下载最新的maven，并通过`/etc/profile`配置maven路径。在命令行中输入`mvn --version` 输出下面的内容时，证明maven已经安装
+```
+mvn --version
+Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-11T00:41:47+08:00)
+Maven home: /usr/share/apache-maven-3.3.9
+Java version: 1.8.0_65, vendor: Oracle Corporation
+Java home: /usr/share/jdk1.8.0_65/jre
+Default locale: zh_CN, platform encoding: UTF-8
+OS name: "linux", version: "3.16.0-70-generic", arch: "amd64", family: "unix"
+```
+接下来，只需要在IDEA中，通过`setting->Build,Execution,Deployment->Build Tools->Maven`设置Maven home为你刚才解压的Maven目录即可。
+####pom.xml
+新建Maven项目，在pom.xml中设置库的依赖即可开发storm-kafka，如下所示：
+
+```
+ <dependencies>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
+            <version>0.9.1-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.10</artifactId>
+            <version>0.8.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+ </dependencies>
+```
+现在开始storm开发之旅
